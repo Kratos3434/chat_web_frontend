@@ -28,7 +28,7 @@ const Signin = () => {
             const data = await signin(user.emailOrUsername, user.password);
             setUser(data);
             getSocket().connect();
-            router.push("/");
+            router.push("/home");
         } catch (err: any) {
             setError(err);
             isLoading(false);

@@ -4,7 +4,6 @@ import { userAtom } from '@/store';
 import { ProfileProps } from '@/types';
 import { useHydrateAtoms } from 'jotai/utils';
 import { useEffect } from 'react';
-import Navbar from './Navbar';
 
 interface Props {
     children: React.ReactNode,
@@ -16,17 +15,13 @@ const RootLayout = ({ children, profile }: Props) => {
 
     useEffect(() => {
         if (profile) {
-            const socket = getSocket();
-
-            return () => {
-                socket.disconnect();
-            }
+            getSocket().connect();
         }
     }, []);
 
     return (
-        <main className='mt-[70px] px-[8px] bg-indigo-500'>
-            <Navbar />
+        <main>
+            {/* <Navbar /> */}
             {children}
         </main>
     )
