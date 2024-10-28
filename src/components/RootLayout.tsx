@@ -4,6 +4,7 @@ import { userAtom } from '@/store';
 import { ProfileProps } from '@/types';
 import { useHydrateAtoms } from 'jotai/utils';
 import { useEffect } from 'react';
+import SideNav from './SideNav';
 
 interface Props {
     children: React.ReactNode,
@@ -16,12 +17,19 @@ const RootLayout = ({ children, profile }: Props) => {
     useEffect(() => {
         if (profile) {
             getSocket().connect();
+            getSocket().emit('join', {
+                email: profile.user.email
+            });
+
+            return () => {
+                getSocket().off('join');
+            }
         }
     }, []);
 
     return (
-        <main>
-            {/* <Navbar /> */}
+        <main className='bg-indigo-500 h-[2000px]'>
+            <SideNav />
             {children}
         </main>
     )

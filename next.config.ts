@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
         destination: 'http://99.252.98.97/:path*'
       }
     ]
-  }
+  },
+  reactStrictMode: false,
 };
 
 export default nextConfig;
