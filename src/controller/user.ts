@@ -111,3 +111,22 @@ export const verify = async (otp: string, token?: string) => {
         throw data.error;
     }
 }
+
+export const sendFriendRequest = async (username: string) => {
+    if (!username) throw "Please enter a username!";
+
+}
+
+export const getAllFriends = async (token?: string) => {
+    const res = await fetch(`${PROXY_USER_BASE_URL}/private/user/friends`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+
+    return data.data;
+}

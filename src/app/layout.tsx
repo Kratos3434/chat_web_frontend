@@ -26,7 +26,7 @@ export default function Layout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-indigo-500`}
       >
         {children}
       </body>

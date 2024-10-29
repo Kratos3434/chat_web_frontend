@@ -28,7 +28,7 @@ const RootLayout = ({ children, profile }: Props) => {
     }, []);
 
     return (
-        <main className='bg-indigo-500 h-[2000px] ml-[88px]'>
+        <main className='bg-indigo-500 ml-[88px]'>
             <SideNav />
             {children}
         </main>
