@@ -12,7 +12,10 @@ export const verifyBearerToken = async (token?: string) => {
     const data = await res.json();
 
     if (data.status) {
-        return data.data.email;
+        if (data.data.email) {
+            return data.data.email;
+        }
+        return true;
     }
 
     return false;

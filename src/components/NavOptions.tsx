@@ -1,16 +1,18 @@
 'use client'
+import Link from "next/link";
 import { useState } from "react";
 
 interface Props {
     title: string,
-    icon: any
+    icon: any,
+    path: string
 }
 
-const NavOptions = ({title, icon}: Props) => {
+const NavOptions = ({title, icon, path}: Props) => {
     const [hovering, setHovering] = useState(false);
 
     return (
-        <div className="p-[16px] rounded-md bg-indigo-500 cursor-pointer hover:scale-[1.1] transition-all relative active:scale-[1]" onMouseEnter={() => setHovering(true)}
+        <Link href={path} className="p-[16px] rounded-md bg-indigo-500 cursor-pointer hover:scale-[1.1] transition-all relative active:scale-[1]" onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}>
             {icon}
             {
@@ -21,7 +23,7 @@ const NavOptions = ({title, icon}: Props) => {
                     </div>
                 )
             }
-        </div>
+        </Link>
     );
 }
 
