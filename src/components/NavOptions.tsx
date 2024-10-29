@@ -18,7 +18,7 @@ const NavOptions = ({title, icon, path}: Props) => {
             {
                 hovering &&
                 (
-                    <div className="absolute left-[72px] top-0 flex items-center h-full mmx-[3px] px-[8px] text-white font-bold bg-black rounded-lg shadow-md">
+                    <div className="absolute left-[72px] top-0 flex items-center h-full mmx-[3px] px-[8px] text-black font-bold bg-white rounded-lg shadow-md">
                         <p>{title}</p>
                     </div>
                 )

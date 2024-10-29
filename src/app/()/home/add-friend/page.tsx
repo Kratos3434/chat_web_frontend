@@ -1,8 +1,7 @@
+import AddFriend from "@/components/AddFriend";
 
 const AddFriendPage = () => {
-    return (
-        <h1>Add Friend</h1>
-    )
+    return <AddFriend />;
 }
 
 export default AddFriendPage;
