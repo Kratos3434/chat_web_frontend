@@ -1,4 +1,5 @@
 import { PROXY_USER_BASE_URL, USER_BASE_URL } from "@/env";
+import { FriendProps, FriendRequestProps, ProfileProps } from "@/types";
 
 export const getProfileByBearerToken = async (token?: string) => {
     const res = await fetch(`${USER_BASE_URL}/private/user/profile`, {
@@ -112,12 +113,27 @@ export const verify = async (otp: string, token?: string) => {
     }
 }
 
-export const sendFriendRequest = async (username: string) => {
+export const sendFriendRequest = async (username: string, token?: string) => {
     if (!username) throw "Please enter a username!";
 
+    const res = await fetch(`${PROXY_USER_BASE_URL}/private/user/add-friend/${username}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+
+    if (data.status) {
+        return true;
+    } else {
+        throw data.error;
+    }
 }
 
-export const getAllFriends = async (token?: string) => {
+export const getAllFriends = async (token?: string): Promise<FriendProps[]> => {
     const res = await fetch(`${PROXY_USER_BASE_URL}/private/user/friends`, {
         method: "GET",
         headers: {
@@ -127,6 +143,54 @@ export const getAllFriends = async (token?: string) => {
     });
 
     const data = await res.json();
+
+    return data.data;
+}
+
+export const getAllFriendRequests = async (token?: string): Promise<FriendRequestProps[]> => {
+    const res = await fetch(`${PROXY_USER_BASE_URL}/private/user/friend-requests`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+
+    return data.data;
+}
+
+export const acceptFriendRequest = async (senderId: number, token?: string) => {
+    if (!senderId) throw "Sender id is missing";
+    if (!token) throw "Token is missing";
+
+    const res = await fetch(`${PROXY_USER_BASE_URL}/private/user/friend/accept/${senderId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+
+    if (data.status) {
+        return true;
+    } else {
+        throw data.error;
+    }
+}
+
+export const getProfileByUsername = async (username: string): Promise<ProfileProps | null> => {
+    if (!username) throw "Username is missing";
+    
+    const res = await fetch(`${USER_BASE_URL}/public/user/profile/username/${username}`);
+    const data = await res.json();
+
+    if (!data.status) {
+        throw data.error;
+    }
 
     return data.data;
 }

@@ -3,7 +3,11 @@ import { sendFriendRequest } from "@/controller/user";
 import { Close } from "@mui/icons-material";
 import { useState } from "react";
 
-const SendFriendRequest = () => {
+interface Props {
+    token?: string
+}
+
+const SendFriendRequest = ({token}: Props) => {
     const [openMessage, setOpenMessage] = useState(false);
     const [error, setError] = useState("");
     const [username, setUsername]= useState("");
@@ -15,7 +19,7 @@ const SendFriendRequest = () => {
         setError("");
         isLoading(true);
         try {
-            await sendFriendRequest(username);
+            await sendFriendRequest(username, token);
         } catch (err: any) {
             setError(err);
         }
